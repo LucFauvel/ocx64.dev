@@ -40,11 +40,18 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
     display: inline-flex;
     flex-direction: row;
     gap: 25px;
+    align-items: center;
   }
 
   .me {
     height: 150px;
     width: 150px;
     border-radius: 80px;
+  }
+  
+  @media (max-width: 720px) {
+      .title {
+          flex-direction: column;
+      }
   }
 </style>
