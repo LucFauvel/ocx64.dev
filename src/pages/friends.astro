@@ -1,0 +1,29 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Cool projects my friends made</h1>
+      <p>
+        I always like to showcase what my friends make because what are we if not the sum of our surroundings?
+      </p>
+      <ul>
+        <li><a href="https://splist.fm/">Splist FM</a> - by Max DeMaio</li>
+        <li><a href="https://www.seattlesafeeats.com/">Seatle Safe Eats</a> - by 🐝</li>
+        <li><a href="https://typehero.dev/">TypeHero</a> - by Trashdev and his community</li>
+        <li><a href="https://overlayed.dev/">Overlayed</a> - by Hacksore</li>
+      </ul>
+		</main>
+		<Footer />
+	</body>
+</html>
