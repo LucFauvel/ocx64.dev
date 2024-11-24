@@ -13,9 +13,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	<body>
 		<Header />
 		<main>
-      <div class="title"><img class="me" src="/me.jpg"/><h1>Hi! I'm ocx64 aka Overclock</h1></div>
+      <div class="title"><img class="me" src="/me.jpg"/><div class="name"><h1 class="name-title">Hi! I'm ocx64</h1> <small class="name-subtitle">aka Luc, Overclock</small></div></div>
       <p>
-        For those that don't know me, I'm a software developer (duh). I've been making software ever since I was 12 years old and using computers since before I could read.
+        For those that don't know me, I'm a software developer (duh). I've been making software since I was 12 and using computers since before I could read.
       </p>
       <p>
         I have experience in a lot of different areas of software. Running kubernetes clusters, writing drivers, making web apps, working on cryptography and authentication libraries. 
@@ -43,10 +43,24 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
     align-items: center;
   }
 
+  .name-title {
+    margin: 0;
+  }
+
+  .name-subtitle {
+    color: #999999;
+  }
+
   .me {
     height: 150px;
     width: 150px;
     border-radius: 80px;
+  }
+
+  .name {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0;
   }
   
   @media (max-width: 720px) {
