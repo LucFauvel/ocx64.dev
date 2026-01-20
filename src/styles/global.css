@@ -5,42 +5,39 @@
  */
 
 :root {
-	--accent: #7c89ff;
-	--accent-dark: #2337ff;
-	--black: 255, 255, 255;
-	--gray: 180, 188, 208;
-	--gray-light: 30, 34, 42;
-	--gray-dark: 220, 225, 235;
-	--gray-gradient: rgba(var(--gray-light), 50%), #121418;
-	--box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.33),
-		0 16px 32px rgba(0, 0, 0, 0.33);
+	--accent: #2e457f;
+	--accent-dark: #1d3574;
+	--black: 30, 58, 95;
+	--gray: 100, 120, 140;
+	--gray-light: 227, 221, 211;
+	--gray-dark: 44, 74, 110;
+	--cream: #faf6ec;
+	--border: 1px solid rgb(var(--black));
+	--border-light: 1px solid rgba(var(--black), 0.15);
 }
 @font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-regular.woff') format('woff');
+	font-family: 'IBMPlexMono';
+	src: url('/fonts/IBMPlexMono-Regular.ttf') format('truetype');
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
 }
 @font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-bold.woff') format('woff');
+	font-family: 'IBMPlexMono';
+	src: url('/fonts/IBMPlexMono-Bold.ttf') format('truetype');
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
 }
 body {
-	font-family: 'Atkinson', sans-serif;
+	font-family: 'IBMPlexMono', sans-serif;
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: #121418;
-	background-image: linear-gradient(var(--gray-gradient));
-	background-size: 100% 600px;
-	background-repeat: no-repeat;
+	background: var(--cream);
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
+	color: var(--accent);
 	font-size: 20px;
 	line-height: 1.7;
 }
@@ -57,7 +54,7 @@ h4,
 h5,
 h6 {
 	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
+	color: var(--accent-dark);
 	line-height: 1.2;
 }
 h1 {
@@ -95,13 +92,13 @@ textarea {
 	width: 100%;
 	font-size: 16px;
 	background: rgb(var(--gray-light));
-	color: rgb(var(--gray-dark));
+	color: var(--accent);
 	border: 1px solid rgba(var(--gray), 0.2);
 }
 input {
 	font-size: 16px;
 	background: rgb(var(--gray-light));
-	color: rgb(var(--gray-dark));
+	color: var(--accent);
 	border: 1px solid rgba(var(--gray), 0.2);
 }
 table {
@@ -110,30 +107,31 @@ table {
 img {
 	max-width: 100%;
 	height: auto;
-	border-radius: 8px;
+	border-radius: 0;
 }
 code {
 	padding: 2px 5px;
 	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
+	border-radius: 0;
 }
 pre {
 	padding: 1.5em;
-	border-radius: 8px;
+	border-radius: 0;
 	background-color: rgb(var(--gray-light));
+	border: var(--border-light);
 }
 pre > code {
 	all: unset;
 }
 blockquote {
-	border-left: 4px solid var(--accent);
+	border-left: 2px solid rgb(var(--black));
 	padding: 0 0 0 20px;
 	margin: 0px;
 	font-size: 1.333em;
 }
 hr {
 	border: none;
-	border-top: 1px solid rgba(var(--gray), 0.2);
+	border-top: var(--border-light);
 }
 @media (max-width: 720px) {
 	body {

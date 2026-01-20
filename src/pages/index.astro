@@ -13,23 +13,27 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	<body>
 		<Header />
 		<main>
-      <div class="title"><img class="me" src="/me.jpg"/><div class="name"><h1 class="name-title">Hi! I'm ocx64</h1> <small class="name-subtitle">aka Luc, Overclock</small></div></div>
+      <div class="title"><img class="me" src="/me.png"/><div class="name"><h1 class="name-title">Welcome, I'm ocx64</h1> <small class="name-subtitle">aka Luc, Overclock</small></div></div>
       <p>
-        For those that don't know me, I'm a software developer (duh). I've been making software since I was 12 and using computers since before I could read.
+        I build software, hardware and community. I try my best to foster harmony with others. I am harsh, but fair.
       </p>
       <p>
-        I have experience in a lot of different areas of software. Running kubernetes clusters, writing drivers, making web apps, working on cryptography and authentication libraries. 
-        I'm quite fond of low level stuff, well, about computers in general really.
+        I have experience in a lot of different areas of software. Running kubernetes clusters, writing drivers, making web apps, working on cryptography and authentication libraries.
+        I'm quite fond of systems engineering and the digital world in general.
       </p>
       <p>
-        I won't write down all the languages I know because my personal belief is that its not what you currently know that defines you.
-        Its what you're willing to learn. (Rust btw)
+        I won't write down all the programming languages I know because my personal belief is that it's not what you currently know that defines you.
+        Its what you're willing to learn. (Rust is my favourite however)
+      </p>
+      <p>
+        In terms of spoken languages I know the following: French, English, Arabic, Spanish, German.
       </p>
       <h4>Current setup</h3>
       <ul>
-        <li>Neovim btw (<a href="https://github.com/LucFauvel/dotfiles">dotfiles</a>)</li>
-        <li>Arch btw (Sometimes Windows)</li>
-        <li>MBP M3 Ultra for work</li>
+        <li>Neovim (<a href="https://github.com/LucFauvel/dotfiles">dotfiles</a>)</li>
+        <li>Arch (Sometimes Windows)</li>
+        <li>Laptop: Macbook Pro M3 Max</li>
+        <li>Desktop: Ryzen 7 5800X - 32gb Dominator RAM - Dark Hero VIII - RTX 3070</li>
       </ul>
 		</main>
     <Footer />
@@ -48,13 +52,14 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
   }
 
   .name-subtitle {
-    color: #999999;
+    color: rgb(var(--gray));
   }
 
   .me {
     height: 150px;
     width: 150px;
-    border-radius: 80px;
+    border-radius: 0;
+    border: var(--border);
   }
 
   .name {
