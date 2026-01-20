@@ -47,7 +47,8 @@ const posts = (await getCollection('blog')).sort(
 			}
 			ul li img {
 				margin-bottom: 0.5rem;
-				border-radius: 12px;
+				border-radius: 0;
+				border: var(--border-light);
 			}
 			ul li a {
 				display: block;
@@ -66,7 +67,7 @@ const posts = (await getCollection('blog')).sort(
 				color: rgb(var(--accent));
 			}
 			ul a:hover img {
-				box-shadow: var(--box-shadow);
+				border-color: rgb(var(--black));
 			}
 			@media (max-width: 720px) {
 				ul {

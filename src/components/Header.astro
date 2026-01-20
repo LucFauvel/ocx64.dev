@@ -5,7 +5,7 @@ import { SITE_TITLE } from '../consts';
 
 <header>
 	<nav>
-    <a class="me-container" href="/"><img class="me" src="/me.jpg"/></a>
+    <a class="me-container" href="/"><img class="me" src="/me.png"/></a>
 		<div class="internal-links">
 			<HeaderLink href="/">Me</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
@@ -14,22 +14,14 @@ import { SITE_TITLE } from '../consts';
 		<div class="social-links">
 			<a href="https://x.com/ocx64" target="_blank">
 				<span class="sr-only">Follow me on X</span>
-				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
-          <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
-        </svg>
+				X/Twitter
       </a>
 			<a href="https://bsky.app/profile/ocx64.dev" target="_blank">
 				<span class="sr-only">Follow me on Bluesky</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 576 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg>
-      </a>
+                Bluesky
 			<a href="https://github.com/LucFauvel" target="_blank">
 				<span class="sr-only">Go to my GitHub profile</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
-					><path
-						fill="currentColor"
-						d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-					></path></svg
-				>
+				GitHub
 			</a>
 		</div>
 	</nav>
@@ -38,8 +30,8 @@ import { SITE_TITLE } from '../consts';
 	header {
     margin: 0;
     padding: 0 1em;
-    background: rgb(var(--gray-light));
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    background: var(--cream);
+    border-bottom: var(--border);
   }
   h2 {
       margin: 0;
@@ -57,7 +49,7 @@ import { SITE_TITLE } from '../consts';
   nav a {
       padding: 1em 0.5em;
       color: rgb(var(--gray-dark));
-      border-bottom: 4px solid transparent;
+      border-bottom: 2px solid transparent;
       text-decoration: none;
   }
   nav a:hover {
@@ -65,7 +57,7 @@ import { SITE_TITLE } from '../consts';
   }
   nav a.active {
       text-decoration: none;
-      border-bottom-color: var(--accent);
+      border-bottom-color: rgb(var(--black));
       color: rgb(var(--black));
   }
   .social-links,
@@ -75,7 +67,7 @@ import { SITE_TITLE } from '../consts';
   .me {
     height: 50px;
     width: 50px;
-    border-radius: 30px;
+    border-radius: 0;
   }
   .me-container {
     padding: 0 !important;

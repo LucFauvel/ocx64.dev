@@ -2,7 +2,7 @@
 title: 'Using Rust inside a Slack Workflow app with WASM'
 description: "Slack workflows are pretty cool, they use deno and I'm going to show you how you can use Rust!"
 pubDate: 'Nov 17 2024'
-heroImage: '/rust-slack-wasm.png'
+heroImage: '/rust-slack-wasm.jpg'
 ---
 
 ### If you're wondering why you'd want to use WASM inside a slack workflow, well there's lots of reasons! 
