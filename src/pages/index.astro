@@ -13,7 +13,11 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	<body>
 		<Header />
 		<main>
-      <div class="title"><img class="me" src="/me.png"/><div class="name"><h1 class="name-title">Welcome, I'm ocx64</h1> <small class="name-subtitle">aka Luc, Overclock</small></div></div>
+      <div class="coffee-spot" aria-label="Place or lift the coffee mug" role="button" tabindex="0">
+        <div class="coffee-stain" aria-hidden="true"></div>
+        <img class="coffee-mug" src="/coffee-mug.png" alt="" aria-hidden="true" />
+      </div>
+      <div class="title"><div class="polaroid"><img class="me" src="/me.png"/></div><div class="name"><h1 class="name-title">Welcome, I'm Luke</h1> <small class="name-subtitle handwritten">aka Luc, ocx64, Overclock</small></div></div>
       <p>
         I build software, hardware and community. I try my best to foster harmony with others. I am harsh, but fair.
       </p>
@@ -21,25 +25,186 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
         I have experience in a lot of different areas of software. Running kubernetes clusters, writing drivers, making web apps, working on cryptography and authentication libraries.
         I'm quite fond of systems engineering and the digital world in general.
       </p>
-      <p>
+      <p data-reveal>
         I won't write down all the programming languages I know because my personal belief is that it's not what you currently know that defines you.
-        Its what you're willing to learn. (Rust is my favourite however)
+        Its what you're willing to learn. <span class="ann">Rust is my favourite<svg class="ann-ring" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path d="M150 4 C 62 2 8 10 8 20 C 7 31 70 38 150 37 C 233 38 293 31 292 20 C 294 10 236 2 150 4 C 124 4 102 5 88 8"/></svg></span>
       </p>
       <p>
         In terms of spoken languages I know the following: French, English, Arabic, Spanish, German.
       </p>
-      <h4>Current setup</h3>
+      <div class="setup-head" data-reveal>
+        <span class="margin-note">my daily drivers<svg width="38" height="22" viewBox="0 0 38 22" aria-hidden="true"><path d="M3 4 C 14 2 30 5 33 18 M33 18 L26 14 M33 18 L34 10"/></svg></span>
+      </div>
       <ul>
         <li>Neovim (<a href="https://github.com/LucFauvel/dotfiles">dotfiles</a>)</li>
         <li>Arch (Sometimes Windows)</li>
-        <li>Laptop: Macbook Pro M3 Max</li>
+        <li>Laptop: Macbook Pro M5 Max</li>
         <li>Desktop: Ryzen 7 5800X - 32gb Dominator RAM - Dark Hero VIII - RTX 3070</li>
       </ul>
 		</main>
     <Footer />
+    <script is:inline>
+      (() => {
+        const spot = document.querySelector('.coffee-spot');
+        if (!spot) return;
+        let busy = false;
+        const toggle = () => {
+          if (busy) return;
+          if (!spot.classList.contains('placed')) {
+            // set the mug down — it stays until clicked again
+            busy = true;
+            spot.classList.add('placed');
+            window.setTimeout(() => { busy = false; }, 850);
+          } else {
+            // lift the mug away, leaving the stain
+            busy = true;
+            spot.classList.add('lifting');
+            window.setTimeout(() => {
+              spot.classList.remove('placed', 'lifting');
+              busy = false;
+            }, 700);
+          }
+        };
+        spot.addEventListener('click', toggle);
+        spot.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggle();
+          }
+        });
+      })();
+    </script>
 	</body>
 </html>
 <style>
+  main {
+    position: relative;
+  }
+
+  /* Coffee mug ring — an old stain someone left on the page. Click to re-stamp it. */
+  .coffee-spot {
+    position: absolute;
+    top: 300px;
+    right: -168px;
+    width: 200px;
+    height: 200px;
+    z-index: 0;
+    cursor: pointer;
+  }
+  .coffee-stain {
+    position: absolute;
+    inset: 0;
+    transform: rotate(-7deg);
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cdefs%3E%3Cfilter id='c' x='-25%25' y='-25%25' width='150%25' height='150%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='2' seed='9' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='11'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23c)'%3E%3Ccircle cx='100' cy='100' r='62' fill='none' stroke='%236b431f' stroke-width='4' opacity='0.42'/%3E%3Ccircle cx='100' cy='100' r='62' fill='none' stroke='%236b431f' stroke-width='13' opacity='0.13'/%3E%3Ccircle cx='100' cy='100' r='56' fill='%236b431f' opacity='0.05'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
+  }
+  .coffee-mug {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 272px;
+    height: 272px;
+    max-width: none;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+    pointer-events: none;
+    filter: drop-shadow(0 8px 12px rgba(40, 25, 10, 0.4));
+  }
+  /* keep the mug above the page while it's placed or lifting */
+  .coffee-spot.placed,
+  .coffee-spot.lifting {
+    z-index: 6;
+  }
+  /* first click: descend and stay (forwards holds the resting frame) */
+  .coffee-spot.placed .coffee-mug {
+    animation: place 0.85s cubic-bezier(0.3, 0.7, 0.3, 1) forwards;
+  }
+  /* second click: lift away, revealing the freshened stain */
+  .coffee-spot.placed.lifting .coffee-mug {
+    animation: lift 0.7s ease-in forwards;
+  }
+  .coffee-spot.lifting .coffee-stain {
+    animation: stainpulse 0.9s ease;
+  }
+  @keyframes place {
+    0% {
+      transform: translate(-50%, calc(-50% - 36px)) scale(1.13);
+      opacity: 0;
+    }
+    35% {
+      opacity: 1;
+    }
+    72% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+    84% {
+      transform: translate(-50%, calc(-50% + 2px)) scale(0.985);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
+  @keyframes lift {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+    22% {
+      transform: translate(-50%, calc(-50% + 2px)) scale(0.99);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, calc(-50% - 42px)) scale(1.12);
+      opacity: 0;
+    }
+  }
+  @keyframes stainpulse {
+    0%,
+    55% {
+      opacity: 0.55;
+      transform: rotate(-7deg) scale(1);
+    }
+    70% {
+      opacity: 0.82;
+      transform: rotate(-7deg) scale(1.04);
+    }
+    100% {
+      opacity: 0.55;
+      transform: rotate(-7deg) scale(1);
+    }
+  }
+  @media (max-width: 720px) {
+    .coffee-spot {
+      top: 220px;
+      right: -40px;
+      width: 150px;
+      height: 150px;
+    }
+    .coffee-mug {
+      width: 82px;
+      height: 82px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .coffee-spot.placed .coffee-mug {
+      animation: none;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .coffee-spot.placed.lifting .coffee-mug {
+      animation: none;
+      opacity: 0;
+    }
+    .coffee-spot.lifting .coffee-stain {
+      animation: none;
+    }
+  }
+
   .title {
     display: inline-flex;
     flex-direction: row;
@@ -51,15 +216,76 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
     margin: 0;
   }
 
-  .name-subtitle {
-    color: rgb(var(--gray));
+  /* underline hugs the short last line instead of the full title box */
+  .name-title::after {
+    right: auto;
+    width: 4.2ch;
   }
 
+  .name-subtitle {
+    color: rgb(var(--gray-dark));
+    font-size: 1.5em;
+    line-height: 1;
+    margin-top: 0.55em;
+  }
+
+  .setup-head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.2em 0.9em;
+    margin-top: 1.5em;
+  }
+
+  .setup-label {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 2em;
+    color: var(--accent-dark);
+    margin: 0;
+  }
+
+  /* photo as a taped polaroid, matching the blog cards */
+  .polaroid {
+    position: relative;
+    flex: none;
+    background: var(--cream);
+    padding: 10px 10px 26px;
+    border: var(--border-light);
+    box-shadow: 4px 5px 0 rgba(var(--black), 0.1);
+    transform: rotate(-3deg);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  /* washi tape strip in highlighter yellow */
+  .polaroid::before {
+    content: '';
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    width: 74px;
+    height: 26px;
+    transform: translateX(-50%) rotate(-4deg);
+    background: rgba(var(--highlighter), 0.4);
+    border-left: 1px solid rgba(var(--black), 0.06);
+    border-right: 1px solid rgba(var(--black), 0.06);
+    box-shadow: 0 1px 2px rgba(var(--black), 0.08);
+    z-index: 3;
+  }
+  .polaroid:hover {
+    transform: rotate(0deg) translateY(-4px);
+    box-shadow: 7px 9px 0 rgba(var(--black), 0.13);
+  }
   .me {
+    display: block;
     height: 150px;
     width: 150px;
-    border-radius: 0;
-    border: var(--border);
+    object-fit: cover;
+    object-position: center 30%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .polaroid {
+      transition: none;
+    }
   }
 
   .name {

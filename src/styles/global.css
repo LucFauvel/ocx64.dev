@@ -5,13 +5,19 @@
  */
 
 :root {
-	--accent: #2e457f;
-	--accent-dark: #1d3574;
-	--black: 30, 58, 95;
-	--gray: 100, 120, 140;
-	--gray-light: 227, 221, 211;
-	--gray-dark: 44, 74, 110;
-	--cream: #faf6ec;
+	/* Earth-toned paper & ink palette */
+	--accent: #51663f; /* sage-forest green — headings & links */
+	--accent-dark: #3c4d2e; /* deep forest */
+	--text: 64, 54, 40; /* espresso body ink */
+	--black: 64, 54, 40; /* warm ink for borders / legacy refs */
+	--terracotta: 178, 102, 71; /* clay accent — marginalia */
+	--sage: 123, 140, 95; /* leaf green */
+	--gray: 124, 112, 92; /* warm taupe */
+	--gray-light: 230, 222, 201; /* warm light — code / inputs */
+	--gray-dark: 92, 80, 60; /* warm dark taupe */
+	--cream: #f4eddd; /* warm paper */
+	/* warm ochre marker highlighter for accents / hovers / active nav */
+	--highlighter: 224, 178, 74;
 	--border: 1px solid rgb(var(--black));
 	--border-light: 1px solid rgba(var(--black), 0.15);
 }
@@ -29,17 +35,54 @@
 	font-style: normal;
 	font-display: swap;
 }
+/* Handwriting accent — used ONLY for margin notes, labels, captions */
+@font-face {
+	font-family: 'Caveat';
+	src: url('/fonts/Caveat-Regular.ttf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
 body {
 	font-family: 'IBMPlexMono', sans-serif;
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: var(--cream);
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	color: var(--accent);
+	color: rgb(var(--text));
 	font-size: 20px;
 	line-height: 1.7;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	/* Paper: cream base + faint engineering dot-grid + subtle fiber noise */
+	background-color: var(--cream);
+	background-image:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"),
+		radial-gradient(rgba(var(--black), 0.07) 1px, transparent 1.4px);
+	background-size: 160px 160px, 24px 24px;
+	background-position: 0 0, 0 0;
+	background-attachment: fixed, scroll;
+}
+
+/* Weathering: aged vignette + faint foxing blotches multiplied onto the paper */
+body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: -1;
+	mix-blend-mode: multiply;
+	background:
+		radial-gradient(ellipse 130% 105% at 50% 45%, transparent 58%, rgba(74, 52, 28, 0.11) 100%),
+		radial-gradient(circle at 9% 14%, rgba(112, 82, 42, 0.06), transparent 24%),
+		radial-gradient(circle at 93% 86%, rgba(112, 82, 42, 0.05), transparent 22%),
+		radial-gradient(circle at 78% 22%, rgba(112, 82, 42, 0.035), transparent 16%);
+}
+
+/* Handwriting margin-note accent */
+.handwritten {
+	font-family: 'Caveat', cursive;
+	font-weight: 700;
+	letter-spacing: 0.01em;
 }
 main {
 	width: 720px;
@@ -129,9 +172,157 @@ blockquote {
 	margin: 0px;
 	font-size: 1.333em;
 }
+/* Hand-drawn ink rule — a slightly wobbly penned line */
 hr {
 	border: none;
-	border-top: var(--border-light);
+	height: 7px;
+	margin: 1.5em 0;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100% 7px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='7' preserveAspectRatio='none'%3E%3Cpath d='M2 4 C 150 1, 300 6, 450 3.5 S 750 1.5, 900 4 S 1100 5.5, 1198 3' fill='none' stroke='%23403628' stroke-width='1.6' stroke-linecap='round' opacity='0.85'/%3E%3C/svg%3E");
+}
+
+/* Ink-draw heading underline — a pen stroke that sweeps in under h1 */
+h1 {
+	position: relative;
+	display: inline-block;
+}
+h1::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -0.12em;
+	height: 0.32em;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='16' preserveAspectRatio='none'%3E%3Cpath d='M3 9 C 120 4, 240 13, 360 8 S 540 5, 597 10' fill='none' stroke='%23e0b24a' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E");
+	transform: scaleX(0);
+	transform-origin: left center;
+	animation: ink-draw 0.8s 0.25s ease-out forwards;
+	z-index: -1;
+}
+@keyframes ink-draw {
+	to {
+		transform: scaleX(1);
+	}
+}
+
+/* Highlighter sweep behind content links on hover */
+main p a,
+main li a,
+.prose a {
+	position: relative;
+	text-decoration: none;
+	background-image: linear-gradient(rgba(var(--highlighter), 0.55), rgba(var(--highlighter), 0.55));
+	background-repeat: no-repeat;
+	background-position: 0 88%;
+	background-size: 0% 0.28em;
+	transition: background-size 0.25s ease;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+}
+main p a:hover,
+main li a:hover,
+.prose a:hover {
+	color: var(--accent-dark);
+	background-size: 100% 0.28em;
+}
+
+/* ── Marginalia ───────────────────────────────────────────── */
+
+/* Hand-drawn pen circle that loops around a word/phrase */
+.ann {
+	position: relative;
+	white-space: nowrap;
+}
+.ann-ring {
+	position: absolute;
+	left: -16px;
+	top: 50%;
+	width: calc(100% + 32px);
+	height: 2.2em;
+	transform: translateY(-50%);
+	overflow: visible;
+	pointer-events: none;
+}
+.ann-ring path {
+	fill: none;
+	stroke: rgb(var(--terracotta));
+	stroke-width: 2.4;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-dasharray: 1100;
+	stroke-dashoffset: 1100;
+}
+[data-reveal].in-view .ann-ring path {
+	animation: ink-stroke 1s ease forwards;
+}
+@keyframes ink-stroke {
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+/* Pen note scrawled in the margin */
+.margin-note {
+	font-family: 'Caveat', cursive;
+	font-weight: 700;
+	font-size: 1.4em;
+	line-height: 1.05;
+	color: rgb(var(--gray-dark));
+	display: inline-flex;
+	align-items: center;
+	gap: 0.3em;
+	transform: rotate(-4deg);
+}
+.margin-note svg {
+	flex: none;
+}
+.margin-note path {
+	fill: none;
+	stroke: rgb(var(--gray-dark));
+	stroke-width: 2.2;
+	stroke-linecap: round;
+	stroke-dasharray: 200;
+	stroke-dashoffset: 200;
+}
+[data-reveal].in-view .margin-note path {
+	animation: ink-stroke 0.8s 0.2s ease forwards;
+}
+
+/* Generic scroll-reveal: fade + rise as it enters view */
+[data-reveal] {
+	opacity: 0;
+	transform: translateY(14px);
+	transition: opacity 0.6s ease, transform 0.6s ease;
+}
+[data-reveal].in-view {
+	opacity: 1;
+	transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	h1::after {
+		animation: none;
+		transform: scaleX(1);
+	}
+	main p a,
+	main li a,
+	.prose a {
+		transition: none;
+	}
+	[data-reveal] {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+	.ann-ring path,
+	.margin-note path {
+		stroke-dashoffset: 0;
+		animation: none;
+	}
 }
 @media (max-width: 720px) {
 	body {

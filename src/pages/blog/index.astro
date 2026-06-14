@@ -29,6 +29,13 @@ const posts = (await getCollection('blog')).sort(
 			}
 			ul li {
 				width: calc(50% - 1rem);
+				--tilt: 0deg;
+			}
+			ul li:nth-child(2n) {
+				--tilt: 1.4deg;
+			}
+			ul li:nth-child(2n + 1) {
+				--tilt: -1.6deg;
 			}
 			ul li * {
 				text-decoration: none;
@@ -69,6 +76,54 @@ const posts = (await getCollection('blog')).sort(
 			ul a:hover img {
 				border-color: rgb(var(--black));
 			}
+			/* non-featured cards: paper sheets tacked to the page */
+			ul li:not(:first-child) {
+				background: var(--cream);
+				padding: 12px 12px 18px;
+				border: var(--border-light);
+				box-shadow: 4px 5px 0 rgba(var(--black), 0.08);
+				transform: rotate(var(--tilt));
+			}
+			ul li:not(:first-child) > a {
+				position: relative;
+			}
+			/* washi tape strip in highlighter yellow */
+			ul li:not(:first-child) > a::before {
+				content: '';
+				position: absolute;
+				top: -22px;
+				left: 50%;
+				width: 78px;
+				height: 26px;
+				transform: translateX(-50%) rotate(-3deg);
+				background: rgba(var(--highlighter), 0.4);
+				border-left: 1px solid rgba(var(--black), 0.06);
+				border-right: 1px solid rgba(var(--black), 0.06);
+				box-shadow: 0 1px 2px rgba(var(--black), 0.08);
+				z-index: 3;
+			}
+			/* scroll-reveal that preserves each card's resting tilt */
+			ul li[data-reveal] {
+				opacity: 0;
+				transform: translateY(18px) rotate(var(--tilt));
+				transition: opacity 0.6s ease, transform 0.35s ease, box-shadow 0.25s ease;
+			}
+			ul li[data-reveal].in-view {
+				opacity: 1;
+				transform: rotate(var(--tilt));
+			}
+			/* lift & straighten on hover, like picking the sheet up */
+			ul li:not(:first-child):hover {
+				transform: rotate(0deg) translateY(-6px) !important;
+				box-shadow: 7px 9px 0 rgba(var(--black), 0.12);
+			}
+			@media (prefers-reduced-motion: reduce) {
+				ul li[data-reveal] {
+					opacity: 1;
+					transform: rotate(var(--tilt));
+					transition: none;
+				}
+			}
 			@media (max-width: 720px) {
 				ul {
 					gap: 0.5em;
@@ -93,7 +148,7 @@ const posts = (await getCollection('blog')).sort(
 				<ul>
 					{
 						posts.map((post) => (
-							<li>
+							<li data-reveal>
 								<a href={`/blog/${post.slug}/`}>
 									<img width={720} height={360} src={post.data.heroImage} alt="" />
 									<h4 class="title">{post.data.title}</h4>
