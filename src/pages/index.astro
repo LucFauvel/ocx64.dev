@@ -17,7 +17,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
         <div class="coffee-stain" aria-hidden="true"></div>
         <img class="coffee-mug" src="/coffee-mug.png" alt="" aria-hidden="true" />
       </div>
-      <div class="title"><div class="polaroid"><img class="me" src="/me.png"/></div><div class="name"><h1 class="name-title">Welcome, I'm Luke</h1> <small class="name-subtitle handwritten">aka Luc, ocx64, Overclock</small></div></div>
+      <div class="title"><div class="polaroid"><img class="me" src="/me.png"/></div><div class="name"><h1 class="name-title">Welcome, I'm <span class="ul">Luke</span></h1> <small class="name-subtitle handwritten">aka Luc, ocx64, Overclock</small></div></div>
       <p>
         I build software, hardware and community. I try my best to foster harmony with others. I am harsh, but fair.
       </p>
@@ -179,15 +179,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
     }
   }
   @media (max-width: 720px) {
+    /* margin flourish has no room in the single-column layout */
     .coffee-spot {
-      top: 220px;
-      right: -40px;
-      width: 150px;
-      height: 150px;
-    }
-    .coffee-mug {
-      width: 82px;
-      height: 82px;
+      display: none;
     }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -216,10 +210,34 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
     margin: 0;
   }
 
-  /* underline hugs the short last line instead of the full title box */
+  /* underline the name itself so it stays on the right word at any wrap */
   .name-title::after {
-    right: auto;
-    width: 4.2ch;
+    display: none;
+  }
+  .name-title .ul {
+    position: relative;
+    display: inline-block;
+  }
+  .name-title .ul::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.08em;
+    height: 0.3em;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='16' preserveAspectRatio='none'%3E%3Cpath d='M3 9 C 120 4, 240 13, 360 8 S 540 5, 597 10' fill='none' stroke='%23e0b24a' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E")
+      no-repeat;
+    background-size: 100% 100%;
+    transform: scaleX(0);
+    transform-origin: left center;
+    animation: ink-draw 0.8s 0.25s ease-out forwards;
+    z-index: -1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .name-title .ul::after {
+      animation: none;
+      transform: scaleX(1);
+    }
   }
 
   .name-subtitle {
