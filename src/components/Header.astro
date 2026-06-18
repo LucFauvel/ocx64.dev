@@ -58,9 +58,19 @@ import { SITE_TITLE } from '../consts';
       text-decoration: none;
   }
   nav {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
+  }
+  /* keep the fire on the left and socials on the right, links dead-center */
+  nav > .home-fire-wrap {
+      justify-self: start;
+  }
+  nav > .internal-links {
+      justify-self: center;
+  }
+  nav > .social-links {
+      justify-self: end;
   }
   nav a {
       padding: 1em 0.5em;

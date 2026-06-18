@@ -16,6 +16,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
       <div class="coffee-spot" aria-label="Place or lift the coffee mug" role="button" tabindex="0">
         <div class="coffee-stain" aria-hidden="true"></div>
         <img class="coffee-mug" src="/coffee-mug.png" alt="" aria-hidden="true" />
+        <span class="coffee-note handwritten" aria-hidden="true"></span>
       </div>
       <div class="title"><div class="polaroid"><img class="me" src="/me.png"/></div><div class="name"><h1 class="name-title">Welcome, I'm <span class="ul">Luke</span></h1> <small class="name-subtitle handwritten">aka Luc, ocx64, Overclock</small></div></div>
       <p>
@@ -47,12 +48,23 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
       (() => {
         const spot = document.querySelector('.coffee-spot');
         if (!spot) return;
+        const note = spot.querySelector('.coffee-note');
+        const lines = [
+          'ahh, fresh brew ☕',
+          'don’t mind if I do',
+          'fuel acquired',
+          'one more cup won’t hurt',
+          'careful, it’s hot',
+          'compiling... need coffee',
+          'black, like my terminal',
+        ];
         let busy = false;
         const toggle = () => {
           if (busy) return;
           if (!spot.classList.contains('placed')) {
             // set the mug down — it stays until clicked again
             busy = true;
+            if (note) note.textContent = lines[Math.floor(Math.random() * lines.length)];
             spot.classList.add('placed');
             window.setTimeout(() => { busy = false; }, 850);
           } else {
@@ -116,6 +128,45 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
   .coffee-spot.placed,
   .coffee-spot.lifting {
     z-index: 6;
+  }
+  /* a little handwritten remark that pops up with the mug */
+  .coffee-note {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    white-space: nowrap;
+    font-size: 1.45em;
+    line-height: 1.05;
+    text-align: center;
+    color: var(--accent-dark);
+    transform: translateX(-50%) rotate(-5deg) translateY(6px);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 7;
+  }
+  .coffee-spot.placed:not(.lifting) .coffee-note {
+    animation: note-pop 0.85s 0.25s cubic-bezier(0.3, 0.7, 0.3, 1) forwards;
+  }
+  @keyframes note-pop {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) rotate(-5deg) translateY(6px) scale(0.8);
+    }
+    60% {
+      opacity: 1;
+      transform: translateX(-50%) rotate(-5deg) translateY(-2px) scale(1.04);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) rotate(-5deg) translateY(0) scale(1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .coffee-spot.placed:not(.lifting) .coffee-note {
+      animation: none;
+      opacity: 1;
+      transform: translateX(-50%) rotate(-5deg);
+    }
   }
   /* first click: descend and stay (forwards holds the resting frame) */
   .coffee-spot.placed .coffee-mug {
