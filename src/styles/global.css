@@ -208,6 +208,35 @@ h1::after {
 		transform: scaleX(1);
 	}
 }
+/* when an h1 wraps a word in .ul, underline only that word instead of the whole heading */
+h1:has(.ul)::after {
+	display: none;
+}
+h1 .ul {
+	position: relative;
+	display: inline-block;
+}
+h1 .ul::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -0.08em;
+	height: 0.3em;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='16' preserveAspectRatio='none'%3E%3Cpath d='M3 9 C 120 4, 240 13, 360 8 S 540 5, 597 10' fill='none' stroke='%23e0b24a' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E");
+	transform: scaleX(0);
+	transform-origin: left center;
+	animation: ink-draw 0.8s 0.25s ease-out forwards;
+	z-index: -1;
+}
+@media (prefers-reduced-motion: reduce) {
+	h1 .ul::after {
+		animation: none;
+		transform: scaleX(1);
+	}
+}
 
 /* Highlighter sweep behind content links on hover */
 main p a,
