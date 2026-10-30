@@ -1,8 +1,8 @@
 {
-  "client_id": "https://ocx64.dev/hermes/oauth/client-metadata.json",
-  "client_name": "Hermes Agent (local-first)",
+  "client_id": "https://ocx64.dev/apollo/oauth/client-metadata.json",
+  "client_name": "Apollo Agent (local-first)",
   "client_uri": "https://ocx64.dev",
-  "logo_uri": "https://ocx64.dev/hermes/logo.png",
+  "logo_uri": "https://ocx64.dev/apollo/logo.png",
   "application_type": "native",
   "grant_types": ["authorization_code", "refresh_token"],
   "response_types": ["code"],
